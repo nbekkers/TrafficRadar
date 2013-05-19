@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "id": "TrajectSensor_Route059",
+    "properties": {
+      "DSSObjectType": "TRAJECT_SENSOR",
+      "LOCATION": "TrajectSensor_Route059",
+      "TIMESTAMP": "18-05-2013 13:18:03",
+      "COLOR": "#00FF00",
+      "VELOCITY": 33,
+      "LENGTH": 961,
+      "TRAVELTIME": 103,
+      "TRAVELTIME_FF": 963
+    },
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [123289, 487663],
+        [123606, 487587]
+      ]
+    }
+  }]
+}

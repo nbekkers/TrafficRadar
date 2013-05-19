@@ -1,0 +1,70 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "id": "TrajectSensor_Route059",
+    "properties": {
+      "DSSObjectType": "TRAJECT_SENSOR",
+      "LOCATION": "TrajectSensor_Route059",
+      "TIMESTAMP": "18-05-2013 13:18:03",
+      "COLOR": "#00FF00",
+      "VELOCITY": 33,
+      "LENGTH": 961,
+      "TRAVELTIME": 103,
+      "TRAVELTIME_FF": 961
+    },
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [123289, 487663],
+        [123606, 487587],
+        [124072, 487316]
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "id": "TrajectSensor_Route058",
+    "properties": {
+      "DSSObjectType":
+          "TRAJECT_SENSOR",
+      "LOCATION": "TrajectSensor_Route058",
+      "TIMESTAMP": "18-05-2013 13:18:03",
+      "COLOR": "#99FF00",
+      "VELOCITY": 33,
+      "LENGTH": 961,
+      "TRAVELTIME": 104,
+      "TRAVELTIME_FF": 69
+    },
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [124153, 487283],
+        [124138, 487340]
+      ]
+    }
+  },
+  {
+    "type": "Feature",
+    "id":
+        "TrajectSensor_Route057",
+    "properties": {
+      "DSSObjectType": "TRAJECT_SENSOR",
+      "LOCATION": "TrajectSensor_Route057",
+      "TIMESTAMP": "18-05-2013 13:18:03",
+      "COLOR": "#FF9900",
+      "VELOCITY": 16,
+      "LENGTH": 3960,
+      "TRAVELTIME": 864,
+      "TRAVELTIME_FF": 285
+    },
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [118925, 483606],
+        [118912, 483647],
+        [118913, 483654]
+      ]
+    }
+  }
+]}
