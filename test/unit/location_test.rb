@@ -9,7 +9,7 @@ class LocationTest < ActiveSupport::TestCase
     end
   end
   
-  test "save and get location" do
+  test "should save and get location" do
     location = Location.new
     location.name = "Location"
     location.length = 42

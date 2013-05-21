@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'traffic_data_parser'
+require 'save_traffic_data'
 
 class RetrieveTrafficDataJob
 
@@ -12,12 +13,8 @@ class RetrieveTrafficDataJob
 
     puts "Parsing #{parser.traffic_data.size} locations"
     parser.traffic_data.each do |traffic|
-      location = Location.new
-      location.name = traffic[:location]
-      location.length = traffic[:length]
-      location.travel_time_free_flow = traffic[:travel_time_free_flow]
-
-      location.save!
+      saveTraffic = SaveTrafficData.new
+      saveTraffic.save traffic
     end
   end
 

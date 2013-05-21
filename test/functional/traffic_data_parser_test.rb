@@ -24,7 +24,7 @@ class TrafficDataParserTest < Test::Unit::TestCase
     assert_equal [123289, 487663], location[:coordinates][0]
     assert_equal [123606, 487587], location[:coordinates][1]
 
-    assert_equal "18-05-2013 13:18:03", location[:timestamp]
+    assert_equal Time.new(2013, 5, 18, 13, 18, 03), location[:timestamp]
     assert_equal 33, location[:velocity]
     assert_equal 103, location[:travel_time]
     assert_equal "#00FF00", location[:color]

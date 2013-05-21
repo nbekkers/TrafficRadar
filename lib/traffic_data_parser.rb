@@ -26,7 +26,7 @@ class TrafficDataParser
         location[:length] = value['LENGTH']
         location[:travel_time_free_flow] = value['TRAVELTIME_FF']
 
-        location[:timestamp] = value['TIMESTAMP']
+        location[:timestamp] = convert_to_time(value['TIMESTAMP'])
         location[:color] = value['COLOR']
         location[:velocity] = value['VELOCITY']
         location[:travel_time] = value['TRAVELTIME']
@@ -38,5 +38,9 @@ class TrafficDataParser
     end
 
     location
+  end
+  
+  def convert_to_time timestamp
+    Time.parse(timestamp)
   end
 end
