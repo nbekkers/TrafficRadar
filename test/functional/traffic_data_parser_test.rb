@@ -36,6 +36,5 @@ class TrafficDataParserTest < Test::Unit::TestCase
     traffic_data = parser.traffic_data
 
     assert_equal 3, traffic_data.size
-
   end
 end
