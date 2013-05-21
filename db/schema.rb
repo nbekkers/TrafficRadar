@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130519170609) do
+ActiveRecord::Schema.define(:version => 20130521182715) do
 
   create_table "locations", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(:version => 20130519170609) do
     t.integer  "travel_time_free_flow"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+  end
+
+  create_table "traffic", :force => true do |t|
+    t.integer  "location_id"
+    t.datetime "timestamp"
+    t.string   "velocity"
+    t.integer  "travel_time"
+    t.string   "color"
   end
 
 end
