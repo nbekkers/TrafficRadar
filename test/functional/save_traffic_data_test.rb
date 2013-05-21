@@ -18,7 +18,7 @@ class SaveTrafficDataTest < ActiveSupport::TestCase
     saveTrafficData = SaveTrafficData.new
     saveTrafficData.save @traffic
     
-    found = TrafficLocation.find(1)
+    found = Location.find(1)
     assert_equal "Location", found.name
     assert_equal 456, found.length
     assert_equal 900, found.travel_time_free_flow

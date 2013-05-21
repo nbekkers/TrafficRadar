@@ -13,10 +13,12 @@
 
 ActiveRecord::Schema.define(:version => 20130519170609) do
 
-  create_table "traffic_locations", :force => true do |t|
-    t.string  "name"
-    t.integer "length"
-    t.integer "travel_time_free_flow"
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.integer  "length"
+    t.integer  "travel_time_free_flow"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
 end
