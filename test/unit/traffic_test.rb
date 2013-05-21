@@ -3,8 +3,7 @@ require 'test_helper'
 class TrafficTest < ActiveSupport::TestCase
   
   test "should fail without location_id" do
-    traffic = create_traffic 42
-    traffic.location_id = nil
+    traffic = create_traffic(nil, Time.now)
     
     assert_raise ActiveRecord::RecordInvalid do 
       traffic.save!
@@ -12,7 +11,7 @@ class TrafficTest < ActiveSupport::TestCase
   end
   
   test "should fail to save traffic for non-existing location" do
-    traffic = create_traffic 42
+    traffic = create_traffic(42, Time.now)
     
     assert_raise ActiveRecord::RecordNotFound do 
       traffic.save!
@@ -20,20 +19,27 @@ class TrafficTest < ActiveSupport::TestCase
   end
   
   test "should save traffic for existing location" do
+    timestamp = Time.now
+    
     location = save_location
-    traffic = create_traffic(location)
+    traffic = create_traffic(location, timestamp)
     traffic.save!
     
     found = Traffic.all
     assert_equal 1, found.size
+    
+    assert_equal timestamp, found[0].timestamp
+    assert_equal 67, found[0].velocity
+    assert_equal 123, found[0].travel_time
+    assert_equal "#00FF00", found[0].color
   end
   
   private
   
-  def create_traffic(location_id)
+  def create_traffic(location_id, timestamp)
     traffic = Traffic.new
     traffic.location_id = location_id
-    traffic.timestamp = Time.now
+    traffic.timestamp = timestamp
     traffic.velocity = 67
     traffic.travel_time = 123
     traffic.color = "#00FF00"

@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20130521182715) do
   create_table "traffic", :force => true do |t|
     t.integer  "location_id"
     t.datetime "timestamp"
-    t.string   "velocity"
+    t.integer  "velocity"
     t.integer  "travel_time"
     t.string   "color"
   end
