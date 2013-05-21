@@ -1,6 +1,11 @@
 class Traffic < ActiveRecord::Base
   self.table_name = "traffic"
   
-  belongs_to :location
-  validates :location, :existence => true
+  validates :location_id, :presence => true
+  
+  before_save :validate_location
+  
+  def validate_location
+    Location.find(location_id)
+  end
 end
