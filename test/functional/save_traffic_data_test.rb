@@ -11,6 +11,7 @@ class SaveTrafficDataTest < ActiveSupport::TestCase
       :travel_time_free_flow => 900,
       :velocity => 30,
       :travel_time => 990,
+      :color => "#009900",
       :timestamp => @timestamp
     }
   end
@@ -28,6 +29,7 @@ class SaveTrafficDataTest < ActiveSupport::TestCase
     assert_equal 1, traffic.size
     assert_equal 30, traffic[0].velocity
     assert_equal 990, traffic[0].travel_time
+    assert_equal "#009900", traffic[0].color
     assert_equal @timestamp, traffic[0].timestamp
   end
   
@@ -42,6 +44,7 @@ class SaveTrafficDataTest < ActiveSupport::TestCase
       :travel_time_free_flow => 1000,
       :velocity => 40,
       :travel_time => 980,
+      :color => "#999999",
       :timestamp => timestamp
     }
     

@@ -28,6 +28,7 @@ class SaveTrafficData
     traffic.timestamp = data[:timestamp]
     traffic.velocity = data[:velocity]
     traffic.travel_time = data[:travel_time]
+    traffic.color = data[:color]
     traffic.save!
   end
   
