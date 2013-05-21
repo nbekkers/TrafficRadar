@@ -24,7 +24,22 @@ class SaveTrafficDataTest < ActiveSupport::TestCase
     assert_equal 900, found.travel_time_free_flow
   end
   
-  test "should save traffic for existing location" do
+  test "should update location and save traffic for existing location" do
+    saveTrafficData = SaveTrafficData.new
+    saveTrafficData.save @traffic
     
+    other_traffic = {
+      :location => "Location", 
+      :length => 678, 
+      :travel_time_free_flow => 1000
+    }
+    
+    saveTrafficData.save other_traffic
+    assert_equal 1, Location.all.size
+    
+    found = Location.find(1)
+    assert_equal "Location", found.name
+    assert_equal 678, found.length
+    assert_equal 1000, found.travel_time_free_flow
   end
 end
