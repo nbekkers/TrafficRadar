@@ -11,6 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20130519170609) do
+
+  create_table "traffic_locations", :force => true do |t|
+    t.string  "name"
+    t.integer "length"
+    t.integer "travel_time_free_flow"
+    t.integer "velocity"
+    t.integer "travel_time"
+    t.string  "timestamp"
+  end
 
 end
