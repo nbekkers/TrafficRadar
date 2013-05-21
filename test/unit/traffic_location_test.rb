@@ -6,9 +6,6 @@ class TrafficLocationTest < ActiveSupport::TestCase
     traffic.name = "Traffic"
     traffic.length = 42
     traffic.travel_time_free_flow = 32
-    traffic.velocity = 30
-    traffic.travel_time = 50
-    traffic.timestamp = "20130415170000"
 
     traffic.save!
 
@@ -19,8 +16,5 @@ class TrafficLocationTest < ActiveSupport::TestCase
     assert_equal "Traffic", found.name
     assert_equal 42, found.length
     assert_equal 32, found.travel_time_free_flow
-    assert_equal 30, found.velocity
-    assert_equal 50, found.travel_time
-    assert_equal "20130415170000", found.timestamp
   end
 end

@@ -17,9 +17,6 @@ ActiveRecord::Schema.define(:version => 20130519170609) do
     t.string  "name"
     t.integer "length"
     t.integer "travel_time_free_flow"
-    t.integer "velocity"
-    t.integer "travel_time"
-    t.string  "timestamp"
   end
 
 end
