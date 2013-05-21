@@ -1,6 +1,14 @@
 require 'test_helper'
 
 class LocationTest < ActiveSupport::TestCase
+  test "should fail for location without name" do
+    location = Location.new
+
+    assert_raise ActiveRecord::RecordInvalid do 
+      location.save!
+    end
+  end
+  
   test "save and get location" do
     location = Location.new
     location.name = "Location"
