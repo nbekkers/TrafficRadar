@@ -6,7 +6,6 @@ class LocationsControllerTest < ActionController::TestCase
     get :index
 
     assert_response :success
-    assert_not_nil assigns(:locations)
 
     json_response = JSON.parse @response.body
     assert_equal 0, json_response.size
