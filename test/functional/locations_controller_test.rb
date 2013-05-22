@@ -4,8 +4,12 @@ class LocationsControllerTest < ActionController::TestCase
 
   test "should get empty locations when none present" do
     get :index
+
     assert_response :success
     assert_not_nil assigns(:locations)
+
+    json_response = JSON.parse @response.body
+    assert_equal 0, json_response.size
   end
   
   test "should get single locations as json" do
@@ -25,6 +29,7 @@ class LocationsControllerTest < ActionController::TestCase
     save_location
 
     get :index
+
     json_response = JSON.parse @response.body
     assert_equal 2, json_response.size
   end
