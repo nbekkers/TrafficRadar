@@ -39,8 +39,26 @@ class TrafficControllerTest < ActionController::TestCase
     assert_equal "#00FF00", json_response[0]['color']
   end
 
-  private
+  test "get traffic data for multiple locations" do
+    timestamp = Time.now
+    location_id = 3
+    location_id2 = 2
+    save_location location_id
+    save_location location_id2
+    save_traffic location_id, timestamp
+    save_traffic location_id2, timestamp
 
+    get :index, :ids => [2]
+
+    assert_response :success
+
+    json_response = JSON.parse @response.body
+    assert_equal 2, json_response.size
+    assert_equal location_id, json_response[0]['location_id']
+    assert_equal location_id2, json_response[1]['location_id']
+  end
+
+  private
   def save_location(location_id)
     loc = Location.new
     loc.id = location_id
