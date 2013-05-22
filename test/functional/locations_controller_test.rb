@@ -8,7 +8,7 @@ class LocationsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:locations)
   end
   
-  test "should get all locations as json" do
+  test "should get single locations as json" do
     save_location
 
     get :index
@@ -18,6 +18,15 @@ class LocationsControllerTest < ActionController::TestCase
     assert_equal "Location", json_response[0]['name']
     assert_equal 42, json_response[0]['length']
     assert_equal 90, json_response[0]['travel_time_free_flow']
+  end
+
+  test "should get multiple locations as json" do
+    save_location
+    save_location
+
+    get :index
+    json_response = JSON.parse @response.body
+    assert_equal 2, json_response.size
   end
 
   private
