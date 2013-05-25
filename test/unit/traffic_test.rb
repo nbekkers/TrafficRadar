@@ -49,6 +49,19 @@ class TrafficTest < ActiveSupport::TestCase
     assert_equal 0, found.size
   end
 
+  test "should get traffic for last hour only for multiple locations" do
+    location = save_location
+    traffic = create_traffic(1, Time.now)
+    traffic.save!
+
+    location = save_location
+    traffic = create_traffic(2, Time.now)
+    traffic.save!
+
+    found = Traffic.find_for_last_hour([1, 2])
+    assert_equal 2, found.size
+  end
+
   test "should get traffic for last hour only for given locations" do
     location = save_location
     traffic = create_traffic(1, Time.now)
@@ -75,7 +88,7 @@ class TrafficTest < ActiveSupport::TestCase
     assert_equal 1, found.size
   end
 
-  test "should get traffic for last hour" do
+  test "should get traffic for last hour for single location" do
     location = save_location
     traffic = create_traffic(1, Time.now - 1.hour)
     traffic.save!
