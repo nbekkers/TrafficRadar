@@ -12,9 +12,21 @@ class TrafficControllerTest < ActionController::TestCase
   end
 
   test "get empty traffic data when empty ids parameter given" do
-    get :index, :ids => []
+    get :index, :location_ids => []
 
     assert_response :success
+
+    json_response = JSON.parse @response.body
+    assert_equal 0, json_response.size
+  end
+
+  test "get empty traffic data when no traffic for id" do
+    timestamp = Time.now
+    location_id = 1
+    save_location location_id
+    save_traffic location_id, timestamp
+
+    get :index, :location_ids => [2]
 
     json_response = JSON.parse @response.body
     assert_equal 0, json_response.size
@@ -26,7 +38,7 @@ class TrafficControllerTest < ActionController::TestCase
     save_location location_id
     save_traffic location_id, timestamp
 
-    get :index, :ids => [2]
+    get :index, :location_ids => [2]
 
     assert_response :success
 
@@ -48,7 +60,7 @@ class TrafficControllerTest < ActionController::TestCase
     save_traffic location_id, timestamp
     save_traffic location_id2, timestamp
 
-    get :index, :ids => [2]
+    get :index, :location_ids => [location_id, location_id2]
 
     assert_response :success
 

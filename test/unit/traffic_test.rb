@@ -33,9 +33,16 @@ class TrafficTest < ActiveSupport::TestCase
     assert_equal 123, found[0].travel_time
     assert_equal "#00FF00", found[0].color
   end
+
+  test "should get empty traffic for last hour when no location given" do
+
+  end
+
+  test "should get traffic for last hour" do
+
+  end
   
   private
-  
   def create_traffic(location_id, timestamp)
     traffic = Traffic.new
     traffic.location_id = location_id
