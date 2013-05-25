@@ -35,7 +35,9 @@ class TrafficTest < ActiveSupport::TestCase
   end
 
   test "should get empty traffic for last hour when no location given" do
+    traffic = Traffic.find_for_last_hour([])
 
+    assert_equal 0, traffic.size
   end
 
   test "should get traffic for last hour" do
