@@ -6,7 +6,7 @@ class Traffic < ActiveRecord::Base
   before_save :validate_location
 
   def self.find_for_last_hour(location_ids)
-    []
+    Traffic.where(:location_id => location_ids)
   end
 
   private

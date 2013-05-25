@@ -34,14 +34,32 @@ class TrafficTest < ActiveSupport::TestCase
     assert_equal "#00FF00", found[0].color
   end
 
-  test "should get empty traffic for last hour when no location given" do
-    traffic = Traffic.find_for_last_hour([])
+  test "should return empty traffic for last hour when no location given" do
+    found = Traffic.find_for_last_hour([])
 
-    assert_equal 0, traffic.size
+    assert_equal 0, found.size
   end
 
-  test "should get traffic for last hour" do
+  test "should return empty traffic for last hour when no traffic for location" do
+    location = save_location
+    traffic = create_traffic(1, Time.now)
+    traffic.save!
 
+    found = Traffic.find_for_last_hour([2])
+    assert_equal 0, found.size
+  end
+
+  test "should get traffic for last hour for given locations" do
+    location = save_location
+    traffic = create_traffic(1, Time.now)
+    traffic.save!
+
+    location = save_location
+    traffic = create_traffic(2, Time.now)
+    traffic.save!
+
+    found = Traffic.find_for_last_hour([2])
+    assert_equal 1, found.size
   end
   
   private
