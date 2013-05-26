@@ -27,7 +27,7 @@ class TrafficToHashParserTest < ActiveSupport::TestCase
     assert_equal LOCATION_ID, traffic_per_location[0][:location_id]
     assert_equal 1, traffic_per_location[0][:traffic].size
 
-    assert_traffic traffic_per_location[0][:traffic][0], "20130506123045", 42, 123, "#dfdfdf"
+    assert_traffic traffic_per_location[0][:traffic][0], "2013-05-06T12:30:45Z", 42, 123, "#dfdfdf"
   end
 
   def test_parsing_two_traffic_objects_for_same_location
@@ -37,8 +37,8 @@ class TrafficToHashParserTest < ActiveSupport::TestCase
     assert_equal LOCATION_ID, traffic_per_location[0][:location_id]
     assert_equal 2, traffic_per_location[0][:traffic].size
 
-    assert_traffic traffic_per_location[0][:traffic][0], "20130506123045", 42, 123, "#dfdfdf"
-    assert_traffic traffic_per_location[0][:traffic][1], "20130507131415", 32, 321, "#aeaeae"
+    assert_traffic traffic_per_location[0][:traffic][0], "2013-05-06T12:30:45Z", 42, 123, "#dfdfdf"
+    assert_traffic traffic_per_location[0][:traffic][1], "2013-05-07T13:14:15Z", 32, 321, "#aeaeae"
   end
 
   def test_parsing_two_traffic_objects_for_different_location
@@ -52,8 +52,8 @@ class TrafficToHashParserTest < ActiveSupport::TestCase
     assert_equal LOCATION_ID2, traffic_per_location[1][:location_id]
     assert_equal 1, traffic_per_location[1][:traffic].size
 
-    assert_traffic traffic_per_location[0][:traffic][0], "20130506123045", 42, 123, "#dfdfdf"
-    assert_traffic traffic_per_location[1][:traffic][0], "20130507131415", 32, 321, "#aeaeae"
+    assert_traffic traffic_per_location[0][:traffic][0], "2013-05-06T12:30:45Z", 42, 123, "#dfdfdf"
+    assert_traffic traffic_per_location[1][:traffic][0], "2013-05-07T13:14:15Z", 32, 321, "#aeaeae"
   end
 
   private

@@ -27,6 +27,6 @@ class TrafficToHashParser
   end
 
   def convert_timestamp(timestamp)
-    timestamp.strftime("%Y%m%d%H%M%S")
+    timestamp.utc.iso8601
   end
 end
