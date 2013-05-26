@@ -5,5 +5,7 @@ class LocationsToHashConverter
     locations.each do |loc|
       loc_array << {:id => loc.id, :name => loc.name}
     end
+
+    loc_array
   end
 end
