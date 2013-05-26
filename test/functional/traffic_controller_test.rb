@@ -43,12 +43,13 @@ class TrafficControllerTest < ActionController::TestCase
     assert_response :success
 
     json_response = JSON.parse @response.body
+
     assert_equal 1, json_response.size
     assert_equal location_id, json_response[0]['location_id']
-    assert_equal timestamp.utc.iso8601, json_response[0]['timestamp']
-    assert_equal 67, json_response[0]['velocity']
-    assert_equal 123, json_response[0]['travel_time']
-    assert_equal "#00FF00", json_response[0]['color']
+    assert_equal timestamp.utc.strftime("%Y%m%d%H%M%S"), json_response[0]['traffic'][0]['timestamp']
+    assert_equal 67, json_response[0]['traffic'][0]['velocity']
+    assert_equal 123, json_response[0]['traffic'][0]['travel_time']
+    assert_equal "#00FF00", json_response[0]['traffic'][0]['color']
   end
 
   test "get traffic data for multiple locations" do

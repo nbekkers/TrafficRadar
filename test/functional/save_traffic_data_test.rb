@@ -1,4 +1,3 @@
-require 'test_helper'
 require 'save_traffic_data'
 
 class SaveTrafficDataTest < ActiveSupport::TestCase

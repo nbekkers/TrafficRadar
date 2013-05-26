@@ -6,8 +6,7 @@ class TrafficController < ApplicationController
       loc_ids = params[:location_ids].split(",")
     end
 
-    @traffic = Traffic.find_for_last_hour(loc_ids)
-    render :json => @traffic
+    render :json => TrafficToHashParser.new.parse(Traffic.find_for_last_hour(loc_ids))
   end
 
 end
