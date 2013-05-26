@@ -1,0 +1,3 @@
+class LocationsToHashConverter
+  
+end
