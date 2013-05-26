@@ -9,9 +9,21 @@
     <h1>TrafficRadar</h1>
     <table id="locations_table">
       <thead>
-        <tr>
+        <tr id="row_header">
           <td>Id</td>
           <td>Name</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       </thead>
       <tbody>
@@ -47,7 +59,23 @@
       function createTableRows(results) {
         for (var key in results) {
           var id = results[key]['id'];
-          var row = "<tr id='row_" + id + "'><td>" + id + "</td><td>" + results[key]['name'] + "</td></tr>";
+          var row = "<tr id='row_" + id + "'>" +
+              "<td>" + id + "</td>" +
+              "<td>" + results[key]['name'] + "</td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "<td></td>" +
+              "</tr>";
           $('#locations_table > tbody:last').append(row);
         }
       }
@@ -57,9 +85,36 @@
           url: '/traffic/' + ids.join(),
           dataType: 'json',
           success: function (results) {
-            alert(results[0]['traffic'][0]['timestamp']);
+            for(var i = 0; i < 12; i++) {
+              var timestamp = results[0]['traffic'][i]['timestamp'];
+              $("#row_header").find("td")[2 + i].innerHTML = formatDate(new Date(timestamp));
+            }
+
+
+            for (var key in results) {
+              var locationId = results[key]['location_id'];
+
+              for(var i = 0; i < 12; i++) {
+                var velocity = results[key]['traffic'][i]['velocity'];
+                var travelTime = results[key]['traffic'][i]['travel_time'];
+                var color = results[key]['traffic'][i]['color'];
+
+                $("#row_" + locationId).find("td")[2 + i].innerHTML = velocity + " | " + travelTime;
+                $("#row_" + locationId).find("td")[2 + i].style.backgroundColor = color;
+              }
+            }
           }
         });
+      }
+
+      function formatDate(d) {
+        var hours = "" + d.getHours();
+        var mins = "" + d.getMinutes();
+
+        hours = hours.length == 2 ? hours : "0" + hours;
+        mins = mins.length == 2 ? mins : "0" + mins;
+
+        return hours + ":" + mins;
       }
     </script>
   </body>
