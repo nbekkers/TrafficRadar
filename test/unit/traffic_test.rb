@@ -99,6 +99,34 @@ class TrafficTest < ActiveSupport::TestCase
     assert_equal 1, found.size
     assert_equal 2, found[0].id
   end
+
+  test "should get traffic for last hour ordered by timestamp" do
+    save_location
+
+    traffic = create_traffic(1, Time.now - 1.hour + 1.minute)
+    traffic.save!
+    id1 = traffic.id
+
+    traffic = create_traffic(1, Time.now)
+    traffic.save!
+    id2 = traffic.id
+
+    traffic = create_traffic(1, Time.now - 50.minutes)
+    traffic.save!
+    id3 = traffic.id
+
+    traffic = create_traffic(1, Time.now - 30.minutes)
+    traffic.save!
+    id4 = traffic.id
+
+    found = Traffic.find_for_last_hour([1])
+
+    assert_equal 4, found.size
+    assert_equal id1, found[0].id
+    assert_equal id3, found[1].id
+    assert_equal id4, found[2].id
+    assert_equal id2, found[3].id
+  end
   
   private
   def create_traffic(location_id, timestamp)
