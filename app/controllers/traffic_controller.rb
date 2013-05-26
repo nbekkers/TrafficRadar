@@ -1,3 +1,5 @@
+require 'traffic_to_hash_parser'
+
 class TrafficController < ApplicationController
 
   def index
