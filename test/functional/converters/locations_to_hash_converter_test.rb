@@ -4,9 +4,15 @@ require 'locations_to_hash_converter'
 class LocationsToHashConverterTest < ActiveSupport::TestCase
 
   LOCATION_ID = 1
-  LOCATION_NAME = "Loc2"
+  LOCATION_NAME = "Loc1"
+
+  LOCATION_ID2 = 2
+  LOCATION_NAME2 = "Loc2"
 
   def setup
+    @location = create_location(LOCATION_ID, LOCATION_NAME)
+    @location2 = create_location(LOCATION_ID2, LOCATION_NAME2)
+
     @converter = LocationsToHashConverter.new
   end
 
@@ -15,13 +21,19 @@ class LocationsToHashConverterTest < ActiveSupport::TestCase
     assert_equal 0, locations_hash.size
   end
 
-  test "should return location hash when one location given" do
-    loc = create_location(LOCATION_ID, LOCATION_NAME)
-
-    hash = @converter.convert [loc]
+  test "should return array with one location when one location given" do
+    hash = @converter.convert [@location]
     assert_equal 1, hash.size
 
     assert_location LOCATION_ID, LOCATION_NAME, hash[0]
+  end
+
+  test "should return array with two locations when two locations given" do
+    hash = @converter.convert [@location, @location2]
+    assert_equal 2, hash.size
+
+    assert_location LOCATION_ID, LOCATION_NAME, hash[0]
+    assert_location LOCATION_ID2, LOCATION_NAME2, hash[1]
   end
 
   private
