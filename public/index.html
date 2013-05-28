@@ -1,121 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TrafficRadar</title>
+    <link href="style/main.css" rel="stylesheet" type="text/css">
 
     <script src="javascript/jquery-1.10.0.min.js"></script>
+    <script src="javascript/date.js"></script>
+    <script src="javascript/locations_data.js"></script>
+    <script src="javascript/traffic_data.js"></script>
+
+    <title>TrafficRadar</title>
   </head>
   <body>
     <h1>TrafficRadar</h1>
+    <p>
+    Every colored cell has the velocity on the left and the travel time on the right.
+    The color represents how busy traffic is at a certain moment.
+    </p>
+
     <table id="locations_table">
       <thead>
         <tr id="row_header">
-          <td>Id</td>
-          <td>Name</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <th>Id</th>
+          <th>Name</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
       </tbody>
     </table>
 
-    <div id="test">
-
-    </div>
-
     <script>
       $(document).ready(function() {
-        $.ajax({
-          url: '/locations',
-          dataType: 'json',
-          success: function (results) {
-            var ids = getIds(results);
-            getTrafficData(ids);
-
-            createTableRows(results);
-          }
-        });
+        var retrieveTraffic = new RetrieveTrafficData();
+        var retrieveLocations = new RetrieveLocationData();
+        retrieveLocations.retrieveAllLocations(retrieveTraffic.retrieveTrafficData);
       });
-
-      function getIds(results) {
-        var ids = [];
-        for (var key in results) {
-          ids.push(results[key]['id']);
-        }
-        return ids;
-      }
-
-      function createTableRows(results) {
-        for (var key in results) {
-          var id = results[key]['id'];
-          var row = "<tr id='row_" + id + "'>" +
-              "<td>" + id + "</td>" +
-              "<td>" + results[key]['name'] + "</td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "<td></td>" +
-              "</tr>";
-          $('#locations_table > tbody:last').append(row);
-        }
-      }
-
-      function getTrafficData(ids) {
-        $.ajax({
-          url: '/traffic/' + ids.join(),
-          dataType: 'json',
-          success: function (results) {
-            for(var i = 0; i < 12; i++) {
-              var timestamp = results[0]['traffic'][i]['timestamp'];
-              $("#row_header").find("td")[2 + i].innerHTML = formatDate(new Date(timestamp));
-            }
-
-
-            for (var key in results) {
-              var locationId = results[key]['location_id'];
-
-              for(var i = 0; i < 12; i++) {
-                var velocity = results[key]['traffic'][i]['velocity'];
-                var travelTime = results[key]['traffic'][i]['travel_time'];
-                var color = results[key]['traffic'][i]['color'];
-
-                $("#row_" + locationId).find("td")[2 + i].innerHTML = velocity + " | " + travelTime;
-                $("#row_" + locationId).find("td")[2 + i].style.backgroundColor = color;
-              }
-            }
-          }
-        });
-      }
-
-      function formatDate(d) {
-        var hours = "" + d.getHours();
-        var mins = "" + d.getMinutes();
-
-        hours = hours.length == 2 ? hours : "0" + hours;
-        mins = mins.length == 2 ? mins : "0" + mins;
-
-        return hours + ":" + mins;
-      }
     </script>
   </body>
 </html>

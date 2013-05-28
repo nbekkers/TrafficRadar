@@ -1,0 +1,17 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  color:#444444;
+}
+
+#locations_table thead th {
+  font-weight: bold;
+}
+
+#locations_table td {
+  margin: 0px 15px;
+}
+
+#locations_table td:nth-child(1n + 3) {
+  text-align: center;
+}
