@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <script src="javascript/date.js"></script>
+
+  <script src="javascript/jquery-1.10.0.min.js"></script>
+  <script src="javascript/jqPlot/jquery.jqplot.min.js"></script>
+  <script src="javascript/jqPlot/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  <script src="javascript/jqPlot/jqplot.canvasAxisTickRenderer.min.js"></script>
+
+  <script src="javascript/locations_data.js"></script>
+  <script src="javascript/traffic_data.js"></script>
+
+  <title>TrafficRadar Charts</title>
+</head>
+<body>
+  <h1>TrafficRadar</h1>
+  <p>
+    Charts....
+  </p>
+
+  <div id="velocity_chart" style="height:300px; width:500px;"></div>
+  <br />
+  <br />
+  <div id="travel_time_chart" style="height:300px; width:500px;"></div>
+
+  <script>
+    $(document).ready(function() {
+      var retrieveLocations = new RetrieveLocationData();
+      retrieveLocations.retrieveAllLocations(locationsCallback);
+
+      var retrieveTraffic = new RetrieveTrafficData();
+      retrieveTraffic.retrieveTrafficData([1], trafficCallback);
+    });
+
+    function locationsCallback(results) {
+
+    }
+
+    function trafficCallback(results) {
+      var velocityData = [];
+      var travelTimeData = [];
+
+      for(var i = 0; i < 12; i++) {
+        if (results[0]['traffic'][i]) {
+          var time = formatTime(new Date(results[0]['traffic'][i]['timestamp']));
+          velocityData[i] = results[0]['traffic'][i]['velocity'];
+          travelTimeData[i] = results[0]['traffic'][i]['travel_time'];
+        }
+      }
+
+      var velocityChart = $.jqplot ('velocity_chart', [velocityData], {
+        title: 'Snelheid',
+        seriesDefaults: {
+          rendererOptions: {
+            smooth: true
+          }
+        },
+        axes: {
+          xaxis: {
+            label: "Tijd per 5 minuten",
+            pad: 1.1
+          },
+          yaxis: {
+            label: "Snelheid (km / u)"
+          }
+        }
+      });
+      var travelTimeChart = $.jqplot ('travel_time_chart', [travelTimeData], {
+        title: 'Reistijd',
+        seriesDefaults: {
+          rendererOptions: {
+            smooth: true
+          }
+        },
+        axes: {
+          xaxis: {
+            label: "Tijd per 5 minuten",
+            pad: 1.1
+          },
+          yaxis: {
+            label: "Reistijd"
+          }
+        }
+      });
+    }
+
+  </script>
+</body>
+</html>
