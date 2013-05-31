@@ -1,4 +1,4 @@
-function TrafficDataHTML() {
+function TrafficDataTableRows() {
 
   this.process = function(results) {
     this.processHeaders(results);

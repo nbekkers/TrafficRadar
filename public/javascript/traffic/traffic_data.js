@@ -1,7 +1,7 @@
 
-function RetrieveTrafficData() {
+function TrafficData() {
 
-  this.retrieveTrafficData = function(ids, callback) {
+  this.retrieve = function(ids, callback) {
     $.ajax({
       url: '/traffic/' + ids.join(),
       dataType: 'json',

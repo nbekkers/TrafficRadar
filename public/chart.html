@@ -2,22 +2,26 @@
 <html>
 <head>
   <link href="style/main.css" rel="stylesheet" type="text/css">
-  <script src="javascript/date.js"></script>
+  <script src="javascript/util/date.js"></script>
 
-  <script src="javascript/jquery-1.10.0.min.js"></script>
-  <script src="javascript/jqPlot/jquery.jqplot.min.js"></script>
+  <script src="javascript/lib/jquery-1.10.0.min.js"></script>
+  <script src="javascript/lib/jquery.jqplot.min.js"></script>
+
   <script src="javascript/jqPlot/jqplot.canvasAxisLabelRenderer.min.js"></script>
   <script src="javascript/jqPlot/jqplot.canvasAxisTickRenderer.min.js"></script>
 
-  <script src="javascript/locations_data.js"></script>
-  <script src="javascript/traffic_data.js"></script>
+  <script src="javascript/location/locations_data.js"></script>
+  <script src="javascript/traffic/traffic_data.js"></script>
+  <script src="javascript/traffic/traffic_data_chart.js"></script>
+
+  <script src="javascript/chart.js"></script>
 
   <title>TrafficRadar Charts</title>
 </head>
 <body>
   <h1>TrafficRadar</h1>
   <p>
-    Selecteer eerst een locatie. Daarna zullen er twee grafieken verschijnen. Eentje voor de snelheid en een voor
+    Selecteer eerst een locatie. Daarna zullen er twee grafieken verschijnen. Een voor de snelheid en een voor
     de reistijd.
   </p>
   <select id="location_select">
@@ -29,85 +33,5 @@
   <br />
   <br />
   <div id="travel_time_chart" style="height:300px; width:500px;"></div>
-
-  <script>
-    $(document).ready(function() {
-      var retrieveLocations = new RetrieveLocationData();
-      retrieveLocations.retrieveAllLocations(locationsCallback);
-
-      $('#location_select').change(function() {
-        selectLocation($(this).val());
-      });
-    });
-
-    function locationsCallback(results) {
-      for (var key in results) {
-        var option = $('<option>', {
-          value: results[key]['id'],
-          text: results[key]['name']
-        });
-
-        $('#location_select').append(option);
-      }
-    }
-
-    function selectLocation(selectedId) {
-      var retrieveTraffic = new RetrieveTrafficData();
-      retrieveTraffic.retrieveTrafficData([selectedId], trafficCallback);
-    }
-
-    function trafficCallback(results) {
-      var velocityData = [];
-      var travelTimeData = [];
-
-      for(var i = 0; i < 12; i++) {
-        if (results[0]['traffic'][i]) {
-          var time = formatTime(new Date(results[0]['traffic'][i]['timestamp']));
-          velocityData[i] = results[0]['traffic'][i]['velocity'];
-          travelTimeData[i] = results[0]['traffic'][i]['travel_time'];
-        }
-      }
-
-      $('#velocity_chart').html('');
-      $('#travel_time_chart').html('');
-
-
-      var velocityChart = $.jqplot('velocity_chart', [velocityData], {
-        title: 'Snelheid',
-        seriesDefaults: {
-          rendererOptions: {
-            smooth: true
-          }
-        },
-        axes: {
-          xaxis: {
-            label: "Tijd per 5 minuten",
-            pad: 1.1
-          },
-          yaxis: {
-            label: "Snelheid (km / u)"
-          }
-        }
-      });
-      var travelTimeChart = $.jqplot('travel_time_chart', [travelTimeData], {
-        title: 'Reistijd',
-        seriesDefaults: {
-          rendererOptions: {
-            smooth: true
-          }
-        },
-        axes: {
-          xaxis: {
-            label: "Tijd per 5 minuten",
-            pad: 1.1
-          },
-          yaxis: {
-            label: "Reistijd"
-          }
-        }
-      });
-    }
-
-  </script>
 </body>
 </html>

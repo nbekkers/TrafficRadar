@@ -3,14 +3,16 @@
   <head>
     <link href="style/main.css" rel="stylesheet" type="text/css">
 
-    <script src="javascript/jquery-1.10.0.min.js"></script>
-    <script src="javascript/date.js"></script>
+    <script src="javascript/lib/jquery-1.10.0.min.js"></script>
+    <script src="javascript/util/date.js"></script>
 
-    <script src="javascript/locations_data.js"></script>
-    <script src="javascript/location_data_html.js"></script>
+    <script src="javascript/location/locations_data.js"></script>
+    <script src="javascript/location/location_data_table.js"></script>
 
-    <script src="javascript/traffic_data.js"></script>
-    <script src="javascript/traffic_data_html.js"></script>
+    <script src="javascript/traffic/traffic_data.js"></script>
+    <script src="javascript/traffic/traffic_data_table_rows.js"></script>
+
+    <script src="javascript/table.js"></script>
 
     <title>TrafficRadar</title>
   </head>
@@ -43,26 +45,5 @@
       <tbody>
       </tbody>
     </table>
-
-    <script>
-      $(document).ready(function() {
-        var retrieveLocations = new RetrieveLocationData();
-        retrieveLocations.retrieveAllLocations(afterRetrieveLocationsCallback);
-      });
-
-      function afterRetrieveLocationsCallback(results) {
-        var locationsHTML = new LocationDataHTML();
-        locationsHTML.createRows(results);
-
-        var ids = getIds(results);
-        var retrieveTraffic = new RetrieveTrafficData();
-        retrieveTraffic.retrieveTrafficData(ids, afterRetrieveTrafficDataCallback);
-      };
-
-      function afterRetrieveTrafficDataCallback(results) {
-        var trafficHTML = new TrafficDataHTML();
-        trafficHTML.process(results);
-      }
-    </script>
   </body>
 </html>
