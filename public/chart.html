@@ -17,9 +17,14 @@
 <body>
   <h1>TrafficRadar</h1>
   <p>
-    Charts....
+    Selecteer eerst een locatie. Daarna zullen er twee grafieken verschijnen. Eentje voor de snelheid en een voor
+    de reistijd.
   </p>
-
+  <select id="location_select">
+    <option>-- Selecteer een locatie --</option>
+  </select>
+  <br />
+  <br />
   <div id="velocity_chart" style="height:300px; width:500px;"></div>
   <br />
   <br />
@@ -30,12 +35,25 @@
       var retrieveLocations = new RetrieveLocationData();
       retrieveLocations.retrieveAllLocations(locationsCallback);
 
-      var retrieveTraffic = new RetrieveTrafficData();
-      retrieveTraffic.retrieveTrafficData([1], trafficCallback);
+      $('#location_select').change(function() {
+        selectLocation($(this).val());
+      });
     });
 
     function locationsCallback(results) {
+      for (var key in results) {
+        var option = $('<option>', {
+          value: results[key]['id'],
+          text: results[key]['name']
+        });
 
+        $('#location_select').append(option);
+      }
+    }
+
+    function selectLocation(selectedId) {
+      var retrieveTraffic = new RetrieveTrafficData();
+      retrieveTraffic.retrieveTrafficData([selectedId], trafficCallback);
     }
 
     function trafficCallback(results) {
@@ -50,7 +68,11 @@
         }
       }
 
-      var velocityChart = $.jqplot ('velocity_chart', [velocityData], {
+      $('#velocity_chart').html('');
+      $('#travel_time_chart').html('');
+
+
+      var velocityChart = $.jqplot('velocity_chart', [velocityData], {
         title: 'Snelheid',
         seriesDefaults: {
           rendererOptions: {
@@ -67,7 +89,7 @@
           }
         }
       });
-      var travelTimeChart = $.jqplot ('travel_time_chart', [travelTimeData], {
+      var travelTimeChart = $.jqplot('travel_time_chart', [travelTimeData], {
         title: 'Reistijd',
         seriesDefaults: {
           rendererOptions: {
