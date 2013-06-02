@@ -20,8 +20,8 @@ class LocationsControllerTest < ActionController::TestCase
 
     assert_equal 1, json_response[0]['id']
     assert_equal "Location", json_response[0]['name']
-    assert_nil json_response[0]['length']
-    assert_nil json_response[0]['travel_time_free_flow']
+    assert_equal 90, json_response[0]['travel_time_free_flow']
+    assert_equal 42, json_response[0]['length']
   end
 
   test "should get multiple locations as json" do

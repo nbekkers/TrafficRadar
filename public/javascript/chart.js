@@ -1,3 +1,5 @@
+var __travel_time_free_flow_per_location__ = [];
+
 $(document).ready(function() {
   setOnChangeEvent();
 
@@ -12,6 +14,8 @@ function setOnChangeEvent() {
 
 function locationsCallback(locations) {
   for (var key in locations) {
+    __travel_time_free_flow_per_location__[key] = locations[key]['travel_time_free_flow'];
+
     $('#location_select').append($('<option>', {
       value: locations[key]['id'],
       text: locations[key]['name']
@@ -20,20 +24,22 @@ function locationsCallback(locations) {
 }
 
 function trafficCallback(results) {
-  new TrafficDataChart("velocity_chart", getDataArray(results[0], "velocity"), {
+  new TrafficDataChart("velocity_chart", [getCurrentDataArray(results[0], "velocity")], {
     title: "Snelheid",
     labelX: "",
     labelY: "Snelheid (km/u)"
   }).render();
 
-  new TrafficDataChart("travel_time_chart", getDataArray(results[0], "travel_time"), {
+  var currentTravelTime = getCurrentDataArray(results[0], "travel_time");
+  var ttff = getFreeFlowTravelTime(results[0]['location_id'], currentTravelTime);
+  new TrafficDataChart("travel_time_chart", [currentTravelTime, ttff], {
     title: "Reistijd",
     labelX: "",
     labelY: "Reistijd (in sec)"
   }).render();
 }
 
-function getDataArray(result, name) {
+function getCurrentDataArray(result, name) {
   var data = [];
 
   for(var i = 0; i < 12; i++) {
@@ -44,4 +50,12 @@ function getDataArray(result, name) {
   }
 
   return data;
+}
+
+function getFreeFlowTravelTime(loc_id, currentTravelTime) {
+  var ttff = [];
+  for(var i = 0; i < currentTravelTime.length; i++) {
+    ttff[i] = [currentTravelTime[i][0], __travel_time_free_flow_per_location__[loc_id]];
+  }
+  return ttff;
 }

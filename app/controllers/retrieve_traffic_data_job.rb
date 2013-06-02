@@ -4,9 +4,11 @@ require 'save_traffic_data'
 
 class RetrieveTrafficDataJob
 
+  URL = 'http://www.trafficlinkonline.nl/trafficlinkdata/wegdata/TrajectSensorsNH.GeoJSON'
+
   def self.retrieve
     puts  "#{Time.new.inspect}: Retrieving traffic data"
-    contents  = open('http://www.trafficlinkonline.nl/trafficlinkdata/wegdata/TrajectSensorsNH.GeoJSON') {|f| f.read }
+    contents  = open(URL) {|f| f.read }
 
     parser = TrafficDataParser.new
     parser.parse_json(contents)

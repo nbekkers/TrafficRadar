@@ -13,7 +13,7 @@ function TrafficDataChart(id, data, params) {
   }
 
   this.renderChart = function(id, data, title, labelX, labelY) {
-    $.jqplot(id, [data], {
+    $.jqplot(id, data, {
       title: title,
       seriesDefaults: {
         rendererOptions: {
@@ -37,30 +37,3 @@ function TrafficDataChart(id, data, params) {
     });
   }
 }
-
-/*
- var line1 = [["label1", 1], ["label2", 2]];
- $.jqplot("test", [line1], {
- title: "title",
- seriesDefaults: {
- rendererOptions: {
- smooth: true
- }
- },
- axes: {
- xaxis: {
- renderer: $.jqplot.CategoryAxisRenderer,
- label: "X",
- pad: 1.1,
- tickRenderer: $.jqplot.CanvasAxisTickRenderer,
- tickOptions: {
- angle: -90
- }
- },
- yaxis: {
- label: "Y"
- }
- }
- });
-
-    */

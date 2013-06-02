@@ -22,7 +22,7 @@ class TrafficToHashParser
     @hash_array << {:location_id => location_id, :traffic => [traffic_hash]}
   end
 
-  def parse_traffic t
+  def parse_traffic(t)
     {:timestamp => convert_timestamp(t.timestamp), :velocity => t.velocity, :travel_time => t.travel_time, :color => t.color}
   end
 
