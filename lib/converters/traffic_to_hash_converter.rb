@@ -1,4 +1,4 @@
-class TrafficToHashParser
+class TrafficToHashConverter
 
   def parse(traffic_data)
     @hash_array = []

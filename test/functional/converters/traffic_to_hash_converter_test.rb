@@ -1,12 +1,12 @@
-require "traffic_to_hash_parser"
+require 'converters/traffic_to_hash_converter'
 
-class TrafficToHashParserTest < ActiveSupport::TestCase
+class TrafficToHashConverterTest < ActiveSupport::TestCase
 
   LOCATION_ID = 3
   LOCATION_ID2 = 4
 
   def setup
-    @parser = TrafficToHashParser.new
+    @parser = TrafficToHashConverter.new
 
     @timestamp = Time.utc(2013, 5, 6, 12, 30, 45)
     @timestamp2 = Time.utc(2013, 5, 7, 13, 14, 15)

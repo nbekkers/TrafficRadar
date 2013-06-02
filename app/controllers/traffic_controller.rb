@@ -1,4 +1,4 @@
-require 'traffic_to_hash_parser'
+require 'converters/traffic_to_hash_converter'
 
 class TrafficController < ApplicationController
 
@@ -8,7 +8,7 @@ class TrafficController < ApplicationController
       loc_ids = params[:location_ids].split(",")
     end
 
-    render :json => TrafficToHashParser.new.parse(Traffic.find_for_last_hour(loc_ids))
+    render :json => TrafficToHashConverter.new.parse(Traffic.find_for_last_hour(loc_ids))
   end
 
 end

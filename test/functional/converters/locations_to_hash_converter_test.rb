@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'locations_to_hash_converter'
+require 'converters/locations_to_hash_converter'
 
 class LocationsToHashConverterTest < ActiveSupport::TestCase
 
