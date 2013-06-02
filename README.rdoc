@@ -45,3 +45,15 @@ Om de Rails server te starten typ het volgende commando
 === 7 Bekijken applicatie in browser
 Start een browser en ga naar de volgende url
     http://localhost:3000
+
+
+
+== Beschikbare pagina's en REST interfaces
+De volgende REST interfaces zijn beschikbaar
+    /locations                  # Ophalen van alle trajecten
+    /traffic/:locations_ids     # Ophalen van verkeersinformatie voor een of meerdere locaties. De lijst van locaties is gescheiden door een komma
+
+De volgende pagina's zijn beschikbaar
+    index.html                  # Index pagina met links naar verschillende weergaven
+    table.html                  # Tabelweergave voor alle locaties
+    chart.html                  # Grafiekweergave per locatie
