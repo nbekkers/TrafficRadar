@@ -1,7 +1,7 @@
-== TrafficRadar demo
+= TrafficRadar demo
 Welkom bij de GitHub pagina van de TrafficRadar demo.
 
-= Installatie
+== Installatie
 De TrafficRadar is ontwikkeld met de volgende versies van Ruby en Rails. Ruby on Rails is vereist om
 de applicatie te kunnen draaien.
 
@@ -15,28 +15,33 @@ Dit is niet beschikbaar op Windows. Het is dan ook niet getest op Windows.
 In deze demo wordt de applicatie in Rails development modus gedraaid (behalve de testen). De instructies zijn geschreven
 om in een Terminal venster uit te voeren.
 
-1   Maak een clone van de GitHub repository, bijvoorbeeld door in een Terminal venster het volgende commando in te typen
-git clone https://github.com/nbekkers/TrafficRadar.git TrafficRadar
+=== 1 Maak een clone van de GitHub repository
+Bijvoorbeeld door in een Terminal venster het volgende commando in te typen
+    git clone https://github.com/nbekkers/TrafficRadar.git TrafficRadar
 
 Ga in de directory waar de clone staat.
 
-2   Downloaden / Installeren van alle bundles / dependencies
-bundle install
+=== 2 Downloaden / Installeren van alle bundles / dependencies
+    bundle install
 
-3   Aanmaken van de database
-rake db:migrate
+=== 3 Aanmaken van de database
+    rake db:migrate
 
-4   Draaien van alle beschikbare testen (in testmodus)
-rake test
+=== 4 Draaien van alle beschikbare testen (in testmodus)
+    rake test
 
-5   Het starten van de cron job dat om de 5 minuten de actuele verkeersinformatie ophaalt.
-whenever --update-crontab --set 'environment=development'
+=== 5 Het starten van de cron job dat om de 5 minuten de actuele verkeersinformatie ophaalt.
+    whenever --update-crontab --set 'environment=development'
 
 Dit is te controleren met het commando 'crontab -e'. Om hier weer uit te gaan druk op ESC dan :q en Enter.
 
 Om na het gebruik de cron job weer te verwijderen gebruik dan het commando 'whenever -c'
 (Niet vergeten, anders blijft deze cron job doorlopen wanneer je computer wakker is. ;) )
 
-6   Om de Rails server te starten typ het volgende commando 'rails s'
+=== 6 Starten Rails server
+Om de Rails server te starten typ het volgende commando
+    rails s
 
-7   In een browser ga naar http://localhost:3000
+=== 7 Bekijken applicatie in browser
+Start een browser en ga naar de volgende url
+    http://localhost:3000
