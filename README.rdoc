@@ -10,7 +10,7 @@ Rails 3.2.13
 
 De applicatie maakt verder gebruik van cron jobs. Hiervoor is de gem 'whenever' gebruikt.
 Deze plugin maakt gebruik van het 'crontab' commando dat beschikbaar is op Mac en Unix systemen.
-Dit is niet beschikbaar op Windows. Het is dan ook niet getest op Windows.
+Deze is niet beschikbaar op Windows. Het is dan ook niet getest op Windows.
 
 In deze demo wordt de applicatie in Rails development modus gedraaid (behalve de testen). De instructies zijn geschreven
 om in een Terminal venster uit te voeren.
@@ -46,6 +46,8 @@ Om de Rails server te starten typ het volgende commando
 Start een browser en ga naar de volgende url
     http://localhost:3000
 
+Wanneer er nog geen gegevens zijn opgehaald zal de tabel en de grafiek nog leeg zijn. Deze zal om de 5 minuten verder
+gevuld worden.
 
 
 == Beschikbare pagina's en REST interfaces
@@ -57,3 +59,25 @@ De volgende pagina's zijn beschikbaar
     index.html                  # Index pagina met links naar verschillende weergaven
     table.html                  # Tabelweergave voor alle locaties
     chart.html                  # Grafiekweergave per locatie
+
+
+== Over de TrafficRadar applicatie
+
+=== De cron job met whenever
+Om de 5 minuten wordt een cron job gestart dat het bestand 'controllers/retrieve_traffic_data_job.rb' start om de
+actuele reistijden op te halen en op te slaan. Outputgegevens van deze job zullen geschreven worden naar het bestand 'log/retrieve_traffic_data.log'.
+Wanneer er iets fout mocht gaan zal dat hierin worden weggeschreven.
+
+Ten eerste worden de gegevens van de server gehaald. Deze gegevens worden omgezet naar een hash door de TrafficDataParser. Vervolgens worden de gegevens
+via ActiveRecord models opgeslagen in de database.
+
+=== Ophalen van de gegevens met REST interfaces
+Voor de REST interfaces zijn twee Rails controllers aangemaakt. Eentje voor de locaties (trajecten) met de naam LocationsController en de ander om de
+actuele verkeersgegevens op te halen TrafficController. Beide controllers halen de data uit de database met behulp van ActiveRecord models en zetten deze om naar
+een hash met behulp van een converter. De resulterende hash wordt omgezet naar JSON en via de REST interface beschikbaar gesteld.
+De data wordt eerst omgezet naar een hash om de ActiveRecord model te scheiden van de REST interface.
+
+=== HTML / Javascript client
+In de public directory staan alle bestanden voor de client. JQuery wordt gebruikt om via Ajax requesten de data van de REST interfaces op te halen.
+Om de grafieken te tonen wordt de jqPlot library gebruikt.
+
