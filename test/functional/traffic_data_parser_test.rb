@@ -9,6 +9,19 @@ class TrafficDataParserTest < Test::Unit::TestCase
     @parser = TrafficDataParser.new
   end
 
+  def test_parse_with_empty_string
+    assert_raise JSON::ParserError do
+      parser.parse_json ""
+      assert_equal 0, parser.traffic_data.size
+    end
+  end
+
+  def test_parse_with_no_locations
+    parser.parse_json File.read("./test/resources/traffic_data_no_feature.json")
+
+    assert_equal 0, parser.traffic_data.size
+  end
+
   def test_return_single_location_when_one_location
     parser.parse_json File.read("./test/resources/traffic_data_single_feature.json")
 
