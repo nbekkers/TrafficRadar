@@ -4,8 +4,7 @@ $(document).ready(function() {
 });
 
 function afterRetrieveLocationsCallback(results) {
-  var locationsHTML = new LocationDataHTML();
-  locationsHTML.createRows(results);
+  new LocationDataTable().createRows(results);
 
   var ids = getIds(results);
   new TrafficData().retrieve(ids, afterRetrieveTrafficDataCallback);

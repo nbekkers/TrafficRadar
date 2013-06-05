@@ -8,7 +8,10 @@ $(document).ready(function() {
 
 function setOnChangeEvent() {
   $("#location_select").change(function() {
-    new TrafficData().retrieve([$(this).val()], trafficCallback);
+    var selectedId = $(this).val();
+    if (selectedId != 0) {
+      new TrafficData().retrieve([selectedId], trafficCallback);
+    }
   });
 }
 

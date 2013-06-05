@@ -1,4 +1,4 @@
-function LocationDataHTML() {
+function LocationDataTable() {
   this.createRows = function(json_locations) {
     for (var key in json_locations) {
       var id = json_locations[key]['id'];
